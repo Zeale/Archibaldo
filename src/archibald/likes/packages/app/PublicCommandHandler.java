@@ -7,6 +7,7 @@ import static archibald.likes.packages.api.utils.DiscordUtils.canAttachFile;
 import static archibald.likes.packages.api.utils.DiscordUtils.canSendMessage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -122,6 +123,16 @@ public class PublicCommandHandler {
 
 				reply(data, "Your reminder was scheduled successfully.");
 
+			}
+		};
+
+		rootCommandNamespace.addCommandHelp("sort", "Sorts a list of Strings", "sort [args...]", "srt");
+		rootCommandNamespace.new PublicCommand() {
+			@Override
+			protected void run(BotCommandInvocation<MessageReceivedEvent> data) {
+				String[] args = data.args;
+				Arrays.sort(args);
+				reply(data, "[" + String.join(" ", args) + "]");
 			}
 		};
 	}
