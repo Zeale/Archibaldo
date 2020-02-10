@@ -7,6 +7,7 @@ import static archibald.likes.packages.api.utils.DiscordUtils.canAttachFile;
 import static archibald.likes.packages.api.utils.DiscordUtils.canSendMessage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -59,6 +60,18 @@ public class PublicCommandHandler {
 				// If the invoker doesn't provide any arguments, reply "Hi." Otherwise, notify
 				// them of invoking the command wrong.
 				reply(data, data.args.length == 0 ? "Hi." : "That command doesn't take any arguments.");
+			}
+		};
+
+		rootCommandNamespace.addCommandHelp("sort", "Sorts a list of strings", "sort [args...]", "srt");
+
+		rootCommandNamespace.new PublicCommand("sort", "srt") {
+
+			@Override
+			protected void run(BotCommandInvocation<MessageReceivedEvent> data) {
+				String[] args = data.args;
+				Arrays.sort(args);
+				reply(data, '['+String.join(" ", args) + "]");
 			}
 		};
 
